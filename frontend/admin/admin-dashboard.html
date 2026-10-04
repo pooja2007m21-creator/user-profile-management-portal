@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Profile Management Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
+    <link href="../css/admin.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-shield-halved text-primary"></i>
+                <span>Admin Console</span>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="sidebar-section-label">Management</div>
+                <a href="admin-dashboard.html" class="sidebar-link active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="users.html" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>All Users</span>
+                </a>
+                <a href="users.html?status=ACTIVE" class="sidebar-link">
+                    <i class="fas fa-user-check"></i>
+                    <span>Active Users</span>
+                </a>
+                <a href="users.html?status=INACTIVE" class="sidebar-link">
+                    <i class="fas fa-user-slash"></i>
+                    <span>Inactive Users</span>
+                </a>
+
+                <div class="sidebar-section-label">System & Reports</div>
+                <a href="../dashboard.html" class="sidebar-link">
+                    <i class="fas fa-user-gear"></i>
+                    <span>Switch to User View</span>
+                </a>
+                <a href="/docs" target="_blank" class="sidebar-link">
+                    <i class="fas fa-book"></i>
+                    <span>FastAPI API Docs</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user-mini mb-3">
+                    <div class="sidebar-user-avatar bg-dark text-white"><i class="fas fa-shield-alt"></i></div>
+                    <div class="sidebar-user-info">
+                        <div id="admin-sidebar-name" class="sidebar-user-name">Administrator</div>
+                        <div id="admin-sidebar-role" class="sidebar-user-role">Super Admin</div>
+                    </div>
+                </div>
+                <button onclick="handleLogout(true)" class="btn btn-outline-danger btn-sm w-100">
+                    <i class="fas fa-sign-out-alt me-1"></i> Admin Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <main class="main-wrapper">
+            <header class="top-navbar">
+                <div class="top-nav-left">
+                    <button id="sidebar-toggle" class="sidebar-toggle-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 class="page-title-header">System Oversight & Metrics</h2>
+                </div>
+
+                <div class="top-nav-right">
+                    <a href="users.html" class="btn btn-sm btn-primary">
+                        <i class="fas fa-users-gear me-1"></i> Manage Users
+                    </a>
+                </div>
+            </header>
+
+            <div class="content-body" id="admin-stats-container">
+                
+                <!-- 5 Metrics Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-sm-6 col-xl">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h4>Total Users</h4>
+                                <div id="stat-total-users" class="stat-value">0</div>
+                                <div class="stat-desc">Registered profiles</div>
+                            </div>
+                            <div class="stat-icon primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xl">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h4>Active Accounts</h4>
+                                <div id="stat-active-users" class="stat-value text-success">0</div>
+                                <div class="stat-desc">Operational users</div>
+                            </div>
+                            <div class="stat-icon success">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xl">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h4>Inactive Accounts</h4>
+                                <div id="stat-inactive-users" class="stat-value text-danger">0</div>
+                                <div class="stat-desc">Deactivated / Suspended</div>
+                            </div>
+                            <div class="stat-icon warning">
+                                <i class="fas fa-user-xmark"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xl">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h4>Admin Accounts</h4>
+                                <div id="stat-admin-users" class="stat-value text-primary">0</div>
+                                <div class="stat-desc">Elevated roles</div>
+                            </div>
+                            <div class="stat-icon secondary">
+                                <i class="fas fa-shield-halved"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xl">
+                        <div class="stat-card">
+                            <div class="stat-info">
+                                <h4>New (Month)</h4>
+                                <div id="stat-new-users" class="stat-value text-dark">0</div>
+                                <div class="stat-desc">Recent signups</div>
+                            </div>
+                            <div class="stat-icon primary">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-8">
+                        <div class="dashboard-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold mb-0"><i class="fas fa-chart-column text-primary me-2"></i> User Growth Trend</h5>
+                                <span class="badge bg-light text-dark">Last 6 Months</span>
+                            </div>
+                            <div class="chart-card-wrapper" style="height: 250px;">
+                                <canvas id="regChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="dashboard-card h-100">
+                            <h5 class="fw-bold mb-3"><i class="fas fa-chart-pie text-success me-2"></i> Account Status Ratio</h5>
+                            <div class="chart-card-wrapper" style="height: 250px;">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Registered Users -->
+                <div class="dashboard-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="fas fa-clock-rotate-left text-primary me-2"></i> Recently Registered Users</h5>
+                        <a href="users.html" class="btn btn-sm btn-outline-primary">
+                            View All Users <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="portal-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Joined Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-users-table-body">
+                                <tr>
+                                    <td colspan="6" class="text-center py-3">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                        <span class="ms-2 small text-muted">Loading recent users...</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

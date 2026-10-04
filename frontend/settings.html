@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - Profile Management Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-id-card-clip"></i>
+                <span>ProfilePortal</span>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="sidebar-section-label">Main Menu</div>
+                <a href="dashboard.html" class="sidebar-link">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="profile.html" class="sidebar-link">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="edit-profile.html" class="sidebar-link">
+                    <i class="fas fa-user-pen"></i>
+                    <span>Edit Profile</span>
+                </a>
+
+                <div class="sidebar-section-label">Account & Security</div>
+                <a href="security.html" class="sidebar-link">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>Security</span>
+                </a>
+                <a href="settings.html" class="sidebar-link active">
+                    <i class="fas fa-gear"></i>
+                    <span>Account Settings</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user-mini mb-3">
+                    <img id="sidebar-avatar-img" class="sidebar-user-avatar" src="" alt="Avatar" style="display: none;">
+                    <div id="sidebar-avatar-initial" class="sidebar-user-avatar" style="display: flex;">U</div>
+                    <div class="sidebar-user-info">
+                        <div id="sidebar-user-name" class="sidebar-user-name">Loading...</div>
+                        <div id="sidebar-user-role" class="sidebar-user-role">User</div>
+                    </div>
+                </div>
+                <button onclick="handleLogout()" class="btn btn-outline-danger btn-sm w-100">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Wrapper -->
+        <main class="main-wrapper">
+            <header class="top-navbar">
+                <div class="top-nav-left">
+                    <button id="sidebar-toggle" class="sidebar-toggle-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 class="page-title-header">Account Preferences & Settings</h2>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <div class="max-w-900 mx-auto">
+                    
+                    <!-- 1. Email Preferences -->
+                    <div class="dashboard-card mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="p-2 bg-primary-subtle text-primary rounded"><i class="fas fa-envelope"></i></div>
+                                <h5 class="fw-bold mb-0">Primary Email Address</h5>
+                            </div>
+                        </div>
+
+                        <form id="settings-email-form">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-8">
+                                    <label class="form-label" for="settings_email">Account Email</label>
+                                    <input type="email" id="settings_email" class="form-control no-icon" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-save me-1"></i> Update Email
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 2. Notification Preferences -->
+                    <div class="dashboard-card mb-4">
+                        <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                            <div class="p-2 bg-info-subtle text-info rounded"><i class="fas fa-bell"></i></div>
+                            <h5 class="fw-bold mb-0">Notification Preferences</h5>
+                        </div>
+
+                        <form id="notifications-form">
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notify_security" checked>
+                                <label class="form-check-label fw-semibold" for="notify_security">Security Alerts</label>
+                                <div class="small text-muted">Receive alerts on suspicious logins, password updates, and token changes.</div>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notify_profile" checked>
+                                <label class="form-check-label fw-semibold" for="notify_profile">Profile & Account Updates</label>
+                                <div class="small text-muted">Get notifications when your profile details or permissions are updated.</div>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="notify_newsletter">
+                                <label class="form-check-label fw-semibold" for="notify_newsletter">Product Updates & Features</label>
+                                <div class="small text-muted">Receive occasional updates on portal features and improvements.</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-check me-1"></i> Save Notification Preferences
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 3. Account Status & Quick Actions -->
+                    <div class="dashboard-card mb-4">
+                        <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                            <div class="p-2 bg-secondary-subtle text-secondary rounded"><i class="fas fa-sliders"></i></div>
+                            <h5 class="fw-bold mb-0">Account State</h5>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <div>
+                                <div class="fw-bold">Current Account Status</div>
+                                <div class="small text-muted">Active identity status on the portal</div>
+                            </div>
+                            <span id="settings-current-status"><span class="badge-status active">ACTIVE</span></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <div>
+                                <div class="fw-bold">Session Security</div>
+                                <div class="small text-muted">End current session and clear local token store</div>
+                            </div>
+                            <button onclick="handleLogout()" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-sign-out-alt me-1"></i> Log Out
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Danger Zone (Account Deletion) -->
+                    <div class="dashboard-card border-danger-subtle bg-danger-subtle bg-opacity-10">
+                        <div class="d-flex align-items-center gap-2 mb-2 text-danger">
+                            <i class="fas fa-triangle-exclamation fa-lg"></i>
+                            <h5 class="fw-bold mb-0">Danger Zone</h5>
+                        </div>
+                        <p class="small text-muted mb-3">
+                            Permanently delete your account, personal details, and avatar from the system. This action cannot be undone.
+                        </p>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                            <i class="fas fa-trash-alt me-1"></i> Delete My Account Permanently
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Delete Account Confirmation Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">
+                        <i class="fas fa-triangle-exclamation me-2"></i> Confirm Account Deletion
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-danger fw-bold mb-2">
+                        Are you sure you want to permanently delete your account?
+                    </p>
+                    <p class="small text-muted mb-3">
+                        All your profile information, address details, and uploaded profile pictures will be immediately wiped from the database.
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold" for="delete_confirmation_text">
+                            To confirm, please type <span class="badge bg-danger">DELETE</span> in the box below:
+                        </label>
+                        <input type="text" id="delete_confirmation_text" class="form-control" placeholder="DELETE">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirm-delete-account-btn" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i> Yes, Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+/* ==========================================================================
+   Auth Pages Styling (Login, Register, Forgot Password, Admin Login)
+   ========================================================================== */
+
+.auth-wrapper {
+    min-height: calc(100vh - 75px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+    background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+}
+
+.auth-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--gray-200);
+    width: 100%;
+    max-width: 480px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-card.auth-card-lg {
+    max-width: 760px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header .auth-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: var(--radius-full);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.auth-header h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--gray-900);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: var(--gray-500);
+    font-size: 0.95rem;
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.4rem;
+}
+
+.form-label .required-star {
+    color: var(--danger);
+}
+
+.input-icon-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-group i.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--gray-400);
+    font-size: 1rem;
+    pointer-events: none;
+    transition: color var(--transition-fast);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--gray-800);
+    background-color: var(--gray-50);
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.form-control.no-icon {
+    padding-left: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: var(--white);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+.input-icon-group:focus-within i.input-icon {
+    color: var(--primary);
+}
+
+.form-control.is-invalid {
+    border-color: var(--danger);
+    background-color: var(--danger-light);
+}
+
+.invalid-feedback {
+    display: none;
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    font-weight: 500;
+}
+
+.form-control.is-invalid ~ .invalid-feedback,
+.is-invalid + .invalid-feedback {
+    display: block;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 0.85rem;
+    background: none;
+    border: none;
+    color: var(--gray-400);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+    transition: color var(--transition-fast);
+}
+
+.password-toggle-btn:hover {
+    color: var(--gray-700);
+}
+
+/* Password Strength Meter */
+.password-strength-container {
+    margin-top: 0.5rem;
+}
+
+.strength-bar-wrapper {
+    height: 5px;
+    width: 100%;
+    background-color: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: 0.4rem;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: var(--radius-full);
+    transition: all var(--transition);
+}
+
+.strength-bar.weak {
+    width: 30%;
+    background-color: var(--danger);
+}
+
+.strength-bar.medium {
+    width: 65%;
+    background-color: var(--warning);
+}
+
+.strength-bar.strong {
+    width: 100%;
+    background-color: var(--success);
+}
+
+.strength-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+
+.password-requirements-box {
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--gray-500);
+    margin-bottom: 0.25rem;
+}
+
+.requirement-item:last-child {
+    margin-bottom: 0;
+}
+
+.requirement-item.valid {
+    color: var(--success);
+}
+
+.requirement-item.valid i {
+    color: var(--success);
+}
+
+/* Profile Picture Upload Preview */
+.avatar-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.avatar-preview-box {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--primary-light);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    background-color: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-preview-box .avatar-placeholder {
+    font-size: 2.75rem;
+    color: var(--gray-400);
+}
+
+.avatar-upload-btn {
+    margin-top: 0.75rem;
+    font-size: 0.825rem;
+}
+
+/* Demo Credentials Helper Pill */
+.demo-banner {
+    background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+    border: 1px dashed var(--primary);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+}
+
+.demo-banner strong {
+    color: var(--primary);
+}
+
+.demo-pill {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.demo-pill:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
